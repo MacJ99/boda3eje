@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Boda | Isabella & Mateo</title>
+
+<!-- FONTS -->
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;600&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+
+<!-- BOOTSTRAP -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+:root{
+  --black:#0b0b0b;
+  --gold:#d4af37;
+  --gray:#1a1a1a;
+}
+
+/* BASE */
+body{
+  background:var(--black);
+  color:white;
+  font-family:'Outfit', sans-serif;
+}
+
+/* TITULOS */
+h1,h2{
+  font-family:'Playfair Display', serif;
+}
+
+/* HERO */
+.hero{
+  height:100vh;
+  background:url("https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=870") center/cover;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  position:relative;
+}
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.7);
+}
+.hero-content{position:relative; z-index:2;}
+
+.gold{color:var(--gold);}
+
+/* SECCIONES */
+.section{
+  padding:100px 20px;
+}
+.bg-gray{background:var(--gray);}
+
+/* BOTON */
+.btn-gold{
+  background:var(--gold);
+  color:black;
+  border-radius:30px;
+  font-weight:bold;
+}
+
+/* TARJETAS */
+.card-custom{
+  background:#111;
+  border:1px solid #333;
+  padding:20px;
+  border-radius:10px;
+  transition:.3s;
+}
+.card-custom:hover{
+  transform:translateY(-5px);
+}
+
+/* GALERIA */
+.gallery img{
+  width:100%;
+  height:260px;
+  object-fit:cover;
+  filter:grayscale(100%);
+  transition:.4s;
+}
+.gallery img:hover{
+  filter:none;
+  transform:scale(1.05);
+}
+
+/* COUNTDOWN */
+.count{
+  font-size:2rem;
+  color:var(--gold);
+}
+
+/* ANIMACIONES */
+.fade{
+  opacity:0;
+  transform:translateY(40px);
+  transition:.8s;
+}
+.fade.show{
+  opacity:1;
+  transform:none;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<section class="hero">
+<div class="hero-content">
+<h1>Isabella <span class="gold">&</span> Mateo</h1>
+<p>Nos casamos</p>
+<p class="gold">10 de Diciembre 2027</p>
+<a href="#confirmar" class="btn btn-gold mt-3">Confirmar asistencia</a>
+</div>
+</section>
+
+<!-- COUNTDOWN -->
+<section class="section text-center">
+<h2>Cuenta regresiva</h2>
+<div id="countdown" class="count"></div>
+</section>
+
+<!-- HISTORIA -->
+<section class="section bg-gray text-center fade">
+<h2 class="gold">Nuestra Historia</h2>
+<p class="w-75 mx-auto">
+Dos caminos se cruzaron por casualidad…
+y hoy celebramos un destino que elegimos juntos.
+</p>
+</section>
+
+<!-- EVENTO -->
+<section class="section fade">
+<div class="container">
+<h2 class="text-center gold">El Evento</h2>
+
+<div class="row mt-5">
+<div class="col-md-3"><div class="card-custom">3:00 PM<br>Ceremonia</div></div>
+<div class="col-md-3"><div class="card-custom">5:00 PM<br>Recepción</div></div>
+<div class="col-md-3"><div class="card-custom">7:00 PM<br>Cena</div></div>
+<div class="col-md-3"><div class="card-custom">9:00 PM<br>Fiesta</div></div>
+</div>
+</div>
+</section>
+
+<!-- GALERIA -->
+<section class="section bg-gray fade">
+<div class="container">
+<h2 class="text-center gold">Galería</h2>
+
+<div class="row gallery mt-4">
+<div class="col-md-4"><img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf"></div>
+<div class="col-md-4"><img src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e"></div>
+<div class="col-md-4"><img src="https://images.unsplash.com/photo-1606216794074-735e91aa2c92"></div>
+</div>
+</div>
+</section>
+
+<!-- REGALOS -->
+<section class="section text-center fade">
+<h2 class="gold">Regalos</h2>
+<p>Tu presencia es nuestro mejor regalo 💛</p>
+<button class="btn btn-gold" onclick="donar()">Apoyar</button>
+</section>
+
+<!-- MAPA -->
+<section class="section bg-gray text-center fade">
+<h2 class="gold">Ubicación</h2>
+
+<iframe src="https://www.google.com/maps?q=CDMX&output=embed"
+width="100%" height="300"></iframe>
+</section>
+
+<!-- CONFIRMAR -->
+<section id="confirmar" class="section text-center fade">
+<h2 class="gold">Confirmación</h2>
+
+<input id="nombre" class="form-control w-50 mx-auto mb-3" placeholder="Tu nombre">
+
+<button class="btn btn-gold" onclick="confirmar()">
+Confirmar por WhatsApp
+</button>
+</section>
+
+<footer class="text-center p-4 bg-gray">
+<p>Con amor 💛 Isabella & Mateo</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+// COUNTDOWN
+const target = new Date("Dec 10, 2027 00:00:00").getTime();
+
+setInterval(()=>{
+let now = new Date().getTime();
+let diff = target - now;
+
+let d = Math.floor(diff/(1000*60*60*24));
+let h = Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+let m = Math.floor((diff%(1000*60*60))/(1000*60));
+
+document.getElementById("countdown").innerHTML =
+`${d} días ${h}h ${m}m`;
+},1000);
+
+// WHATSAPP
+function confirmar(){
+let nombre = document.getElementById("nombre").value || "Invitado";
+window.open(`https://wa.me/5210000000000?text=Hola soy ${nombre}, confirmo asistencia`);
+}
+
+// DONAR
+function donar(){
+window.open("https://wa.me/5210000000000?text=Quiero apoyar con un regalo 💛");
+}
+
+// ANIMACION
+window.addEventListener("scroll",()=>{
+document.querySelectorAll(".fade").forEach(el=>{
+let top = el.getBoundingClientRect().top;
+if(top < window.innerHeight-50){
+el.classList.add("show");
+}
+});
+});
+</script>
+
+</body>
+</html>
